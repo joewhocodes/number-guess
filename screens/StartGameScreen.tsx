@@ -3,6 +3,9 @@ import { TextInput, View, StyleSheet, Alert } from 'react-native';
 import PrimaryButton from '../components/ui/PrimaryButton';
 
 import Colors from '../constants/colors';
+import Title from '../components/ui/Title';
+import Card from '../components/ui/Card';
+import InstructionText from '../components/ui/InstructionText';
 
 interface StartGameScreenProps {
     pickedNumberHandler?: ((number: number) => void) | undefined;
@@ -35,40 +38,36 @@ const StartGameScreen = (props: StartGameScreenProps) => {
 	};
 
 	return (
-		<View style={styles.inputContainer}>
-			<TextInput
-				style={styles.numberInput}
-				maxLength={2}
-				keyboardType='number-pad'
-				autoCapitalize='none'
-				onChangeText={onEnterNumber}
-				value={number}
-			/>
-			<View style={styles.buttonsContainer}>
-				<PrimaryButton type='Reset' onPress={resetNumber} />
-				<PrimaryButton
-					type='Confirm'
-					onPress={confirmInputHandler}
-					number={number}
-				/>
-			</View>
-		</View>
+		<View style={styles.rootContainer}>
+            <Title text='Guess My Number' />
+            <Card>
+                <InstructionText>Enter a Number</InstructionText>
+                <TextInput
+                    style={styles.numberInput}
+                    maxLength={2}
+                    keyboardType='number-pad'
+                    autoCapitalize='none'
+                    onChangeText={onEnterNumber}
+                    value={number}
+                />
+                <View style={styles.buttonsContainer}>
+                    <PrimaryButton type='Reset' onPress={resetNumber} />
+                    <PrimaryButton
+                        type='Confirm'
+                        onPress={confirmInputHandler}
+                        number={number}
+                    />
+                </View>
+            </Card>
+        </View>
 	);
 };
  
 const styles = StyleSheet.create({
-    inputContainer: {
-        alignItems: 'center',
+    rootContainer: {
+        flex: 1,
         marginTop: 100,
-        marginHorizontal: 24,
-        padding: 16,
-        backgroundColor: Colors.primary800,
-        borderRadius: 8,
-        elevation: 4,
-        shadowColor: 'black',
-        shadowOffset: { width: 0, height: 2 },
-        shadowRadius: 6,
-        shadowOpacity: 0.25,
+        alignItems: 'center',
     },
     buttonsContainer: {
         flexDirection: 'row',

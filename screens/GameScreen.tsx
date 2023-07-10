@@ -4,6 +4,9 @@ import Title from '../components/ui/Title';
 import NumberContainer from '../components/game/NumberContainer';
 import PrimaryButton from '../components/ui/PrimaryButton';
 
+import Card from '../components/ui/Card';
+import InstructionText from '../components/ui/InstructionText';
+
 function generateRandomBetween(min: number, max: number, exclude: number) {
 	const rndNum = Math.floor(Math.random() * (max - min)) + min;
 
@@ -63,8 +66,8 @@ const GameScreen = (props: { userChoice: number, onGameOver: Function }) => {
 		<View style={styles.screen}>
 			<Title text='Opponents guess' />
 			<NumberContainer currentGuess={currentGuess} />
-			<View>
-				<Text>Higher or Lower?</Text>
+			<Card>
+				<InstructionText>Higher or Lower?</InstructionText>
 				<View style={styles.buttonsContainer}>
 					<PrimaryButton
 						type='-'
@@ -75,7 +78,7 @@ const GameScreen = (props: { userChoice: number, onGameOver: Function }) => {
 						onPress={nextGuessHandler.bind(this, 'higher')}
 					/>
 				</View>
-			</View>
+			</Card>
 			{/* <View>
 				<Text>Log Rounds</Text>
 			</View> */}
