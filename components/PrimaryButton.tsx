@@ -1,18 +1,32 @@
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { Dispatch, SetStateAction } from "react";
+import { View, Text, StyleSheet, Pressable, GestureResponderEvent } from "react-native";
 
-const PrimaryButton = ({ children }) => {
-	const pressHandler = () => {
-        console.log('pressed');
+interface PrimaryButtonProps 
+	{
+		type: string;
+		setNumber?: Dispatch<SetStateAction<string>>; 
+		onPress?: ((event: GestureResponderEvent) => void) | undefined;
+		number?: string};
+
+const PrimaryButton = (props: PrimaryButtonProps) => {
+
+	const handleReset = () => {
+        props.setNumber?.('');
     };
 
+    const handleConfirm = () => {
+        console.log(props.number);
+    };
+	
     return (
 		<View style={styles.buttonOuterContainer}>
 			<Pressable
-				onPress={pressHandler}
+				onPress={props.onPress}
+				// onPress={props.type === 'Reset' ? handleReset : handleConfirm}
 				android_ripple={{ color: '#640233' }}
 				style={({pressed}) => pressed ? [styles.buttonInnerContainer, styles.pressed] : styles.buttonInnerContainer}
 			>
-				<Text style={styles.buttonText}>{children}</Text>
+				<Text style={styles.buttonText}>{props.type}</Text>
 			</Pressable>
 		</View>
 	);
