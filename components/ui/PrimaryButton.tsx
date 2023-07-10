@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
 import { View, Text, StyleSheet, Pressable, GestureResponderEvent } from 'react-native';
-import Colors from '../constants/colors';
+import Colors from '../../constants/colors';
 
 
 interface PrimaryButtonProps {
