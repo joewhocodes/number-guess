@@ -1,13 +1,15 @@
+import { ReactNode } from 'react';
 import { Text, StyleSheet, } from 'react-native';
 import Colors from '../../constants/colors';
 
 interface InstructionTextProps {
-    children: React.ReactNode;
+    children: ReactNode;
+    style: object;
 }
 
 const InstructionText = (props: InstructionTextProps) => {
     return (  
-        <Text style={styles.instructionText}>{props.children}</Text>
+        <Text style={[styles.instructionText, props.style]}>{props.children}</Text>
     );
 }
  

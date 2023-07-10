@@ -1,13 +1,16 @@
+import { ReactNode } from 'react';
 import { Dispatch, SetStateAction } from 'react';
-import { View, Text, StyleSheet, Pressable, GestureResponderEvent } from 'react-native';
+import { View, StyleSheet, Pressable, GestureResponderEvent } from 'react-native';
 import Colors from '../../constants/colors';
+import { Ionicons } from '@expo/vector-icons';
 
+type IconName = 'md-remove' | 'md-add'; 
 
 interface PrimaryButtonProps {
-	type: string;
 	setNumber?: Dispatch<SetStateAction<string>>;
 	onPress?: ((event: GestureResponderEvent) => void) | undefined;
 	number?: string;
+	children: ReactNode;
 }
 
 const PrimaryButton = (props: PrimaryButtonProps) => {
@@ -22,7 +25,12 @@ const PrimaryButton = (props: PrimaryButtonProps) => {
 						: styles.buttonInnerContainer
 				}
 			>
-				<Text style={styles.buttonText}>{props.type}</Text>
+				<Ionicons
+					name={props.children as IconName}
+					size={24}
+					color="white"
+					style={styles.icon}
+					/>
 			</Pressable>
 		</View>
 	);
@@ -48,6 +56,9 @@ const styles = StyleSheet.create({
 	},
 	pressed: {
 		opacity: 0.75,
+	},
+	icon: {
+		textAlign: 'center',
 	},
 });
 
