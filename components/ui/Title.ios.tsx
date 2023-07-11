@@ -1,4 +1,4 @@
-import { Text, StyleSheet } from 'react-native';
+import { Text, StyleSheet, Platform } from 'react-native';
 
 const Title = (props: {text: string}) => {
     return ( 
@@ -13,8 +13,10 @@ const styles = StyleSheet.create({
         color: 'white',
         textAlign: 'center',
         borderColor: 'white',
-        borderWidth: 2,
+        borderWidth: 0,
         padding: 12,
+        maxWidth: '80%',
+        width: 300,
     },
 })
 

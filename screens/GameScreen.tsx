@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
-import { View, StyleSheet, Alert, Text, FlatList } from 'react-native';
-// import { Ionicons } from '@expo/vector-icons';
+import { View, StyleSheet, Alert, useWindowDimensions, FlatList } from 'react-native';
 
 import Title from '../components/ui/Title';
 import NumberContainer from '../components/game/NumberContainer';
@@ -26,6 +25,7 @@ const GameScreen = (props: { userChoice: number; onGameOver: Function }) => {
 	const initalGuess = generateRandomBetween(1, 100, props.userChoice);
 	const [guessRounds, setGuessRounds] = useState<any>([]);
 	const [currentGuess, setCurrentGuess] = useState<number>(initalGuess);
+	const { width, height } = useWindowDimensions();
 
 	useEffect(() => {
 		if (currentGuess === props.userChoice) {
@@ -70,9 +70,8 @@ const GameScreen = (props: { userChoice: number; onGameOver: Function }) => {
 
 	const guessRoundsListLength = guessRounds.length;
 
-	return (
-		<View style={styles.screen}>
-			<Title text='Opponents guess' />
+	let content = (
+		<>
 			<NumberContainer currentGuess={currentGuess} />
 			<Card>
 				<InstructionText style={styles.instructionText}>
@@ -91,6 +90,35 @@ const GameScreen = (props: { userChoice: number; onGameOver: Function }) => {
 					</PrimaryButton>
 				</View>
 			</Card>
+		</>
+	);
+
+	if (width > 500) {
+		content = (
+			<>
+				<View style={styles.buttonsContainerWide}>
+					<PrimaryButton
+						onPress={nextGuessHandler.bind(this, 'lower')}
+					>
+						md-remove
+					</PrimaryButton>
+				</View>
+				<NumberContainer currentGuess={currentGuess} />
+				<View style={styles.buttonsContainer}>
+					<PrimaryButton
+						onPress={nextGuessHandler.bind(this, 'higher')}
+					>
+						md-add
+					</PrimaryButton>
+				</View>
+			</>
+		);
+	}
+
+	return (
+		<View style={styles.screen}>
+			<Title text='Opponents guess' />
+			{content}
 			<View style={styles.listContainer}>
 				<FlatList
 					data={guessRounds}
@@ -106,12 +134,17 @@ const styles = StyleSheet.create({
 	screen: {
 		flex: 1,
 		padding: 24,
+		alignItems: 'center',
 	},
 	instructionText: {
 		margin: 12,
 	},
 	buttonsContainer: {
 		flexDirection: 'row',
+	},
+	buttonsContainerWide: {
+		flexDirection: 'row',
+		alignItems: 'center',
 	},
 	listContainer: {
 		flex: 1,
